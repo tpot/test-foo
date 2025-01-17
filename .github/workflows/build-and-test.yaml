@@ -1,0 +1,39 @@
+name: CI with Docker Compose
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the repository
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      # 2. (Optional) Ensure Docker is up-to-date if needed
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # 3. Install Docker Compose
+      #    (Some runners may already include Docker Compose, but if not, install it)
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+
+      # 4. Build and run your services using Docker Compose
+      - name: Build and run services
+        run: |
+          docker-compose up -d --build
+
+      # 5. Run tests (example command)
+      - name: Run tests
+        run: |
+          docker-compose run --rm app ./run_tests.sh
+
+      # 6. (Optional) Tear down containers after tests
+      - name: Shut down containers
+        if: always()
+        run: |
+          docker-compose down
