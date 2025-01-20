@@ -19,7 +19,7 @@ jobs:
       #    (Some runners may already include Docker Compose, but if not, install it)
       - name: Install Docker Compose
         run: |
-	  docker plugin install compose
+          docker plugin install compose
 
       # 4. Build and run your services using Docker Compose
       - name: Build and run services
