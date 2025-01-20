@@ -19,21 +19,20 @@ jobs:
       #    (Some runners may already include Docker Compose, but if not, install it)
       - name: Install Docker Compose
         run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
+	  docker plugin install compose
 
       # 4. Build and run your services using Docker Compose
       - name: Build and run services
         run: |
-          docker-compose up -d --build
+          docker compose up -d --build
 
       # 5. Run tests (example command)
       - name: Run tests
         run: |
-          docker-compose run --rm app ./run_tests.sh
+          docker compose run --rm app ./run_tests.sh
 
       # 6. (Optional) Tear down containers after tests
       - name: Shut down containers
         if: always()
         run: |
-          docker-compose down
+          docker compose down
