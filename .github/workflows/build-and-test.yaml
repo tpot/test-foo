@@ -19,7 +19,7 @@ jobs:
       #    (Some runners may already include Docker Compose, but if not, install it)
       - name: Install Docker Compose
         run: |
-          apt-get update && apt-get install -y docker-compose-plugin
+          sudo apt-get update && apt-get install -y docker-compose-plugin
 
       # 4. Build and run your services using Docker Compose
       - name: Build and run services
